@@ -13,6 +13,8 @@ class Loan extends Model
 
 
     protected $fillable = [
+        'amount',
+        'duration',
         'purpose',
         'description',
         'customer_id',
