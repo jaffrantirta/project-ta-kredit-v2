@@ -35,8 +35,8 @@ class CriteriaResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('weight')
-                    ->label('Bobot kriteria')
-                    ->helperText('Nilai bobot kriteria harus antara 0 sampai 1. Contoh: 0.8')
+                    ->label('Bobot kriteria (%)')
+                    ->helperText('Nilai bobot kriteria harus antara 0 sampai 100. Contoh: input "50" yang berarti 50%')
                     ->numeric()
                     ->required(),
             ]);

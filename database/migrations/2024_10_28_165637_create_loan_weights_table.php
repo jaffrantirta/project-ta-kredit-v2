@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('loan_weights', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_credit_id')->constrained()->onDelete('cascade');
+            $table->foreignId('loan_id')->constrained()->onDelete('cascade');
             $table->foreignId('criteria_id')->constrained()->onDelete('cascade');
             $table->float('value');
             $table->timestamps();
