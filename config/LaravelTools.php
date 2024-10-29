@@ -88,6 +88,28 @@ return [
             'roles' => ['super-admin', 'admin'],
         ],
 
+        // loanweight
+        [
+            'name' => 'loanweight.viewAny',
+            'roles' => ['super-admin', 'admin'],
+        ],
+        [
+            'name' => 'loanweight.view',
+            'roles' => ['super-admin', 'admin'],
+        ],
+        [
+            'name' => 'loanweight.create',
+            'roles' => ['super-admin', 'admin'],
+        ],
+        [
+            'name' => 'loanweight.update',
+            'roles' => ['super-admin', 'admin'],
+        ],
+        [
+            'name' => 'loanweight.delete',
+            'roles' => ['super-admin', 'admin'],
+        ],
+
         // customer
         [
             'name' => 'customer.viewAny',

@@ -21,7 +21,7 @@ class Criteria extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function loanEvaluateAlternatives(): HasMany
+    public function loan_evaluate_alternatives(): HasMany
     {
         return $this->hasMany(LoanEvaluateAlternatives::class);
     }
@@ -31,7 +31,7 @@ class Criteria extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function loanNormalizations(): HasMany
+    public function loan_normalizations(): HasMany
     {
         return $this->hasMany(LoanNormalization::class);
     }
@@ -41,7 +41,7 @@ class Criteria extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function loanWeights(): HasMany
+    public function loan_weights(): HasMany
     {
         return $this->hasMany(LoanWeight::class);
     }

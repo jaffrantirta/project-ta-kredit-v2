@@ -17,7 +17,8 @@ class StatusFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+'name' => $this->faker->word(),
+'minimum_value' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

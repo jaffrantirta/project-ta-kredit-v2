@@ -17,13 +17,23 @@ class LoanWeight extends Model
         'value',
     ];
 
+    /**
+     * Get the loan that owns the LoanWeight
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function loan(): BelongsTo
+    {
+        return $this->belongsTo(Loan::class);
+    }
+
+    /**
+     * Get the criteria that owns the LoanWeight
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function criteria(): BelongsTo
     {
         return $this->belongsTo(Criteria::class);
-    }
-
-    public function loan(): BelongsTo
-    {
-        return $this->belongsTo(Loan::class, 'loan_id');
     }
 }

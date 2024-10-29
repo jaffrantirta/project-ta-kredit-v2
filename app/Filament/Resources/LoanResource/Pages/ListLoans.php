@@ -17,6 +17,7 @@ class ListLoans extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            // Actions\CreateAction::make(),
             Actions\Action::make('normalizeLoans')
                 ->label('Normalize Loans')
                 ->action('normalizeLoans'),

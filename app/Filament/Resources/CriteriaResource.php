@@ -78,7 +78,7 @@ class CriteriaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\LoanWeightRelationManager::class,
         ];
     }
 

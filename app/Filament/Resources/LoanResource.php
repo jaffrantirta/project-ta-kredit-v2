@@ -23,7 +23,7 @@ class LoanResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('customer.name')->label('Nama Nasabah')->disabled(),
+                // Forms\Components\TextInput::make('customer.name')->label('Nama Nasabah')->disabled(),
                 Forms\Components\TextInput::make('amount')->label('Jumlah Pinjaman')->numeric()->prefix('Rp. '),
                 Forms\Components\TextInput::make('duration')->label('Durasi Pinjaman')->suffix(' Bulan'),
             ]);
@@ -55,7 +55,8 @@ class LoanResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\LoanWeightsRelationManager::class,
+            RelationManagers\LoanWeightRelationManager::class,
+
         ];
     }
 

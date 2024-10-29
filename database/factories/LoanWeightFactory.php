@@ -17,7 +17,9 @@ class LoanWeightFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'loan_id' => \App\Models\Loan::factory()->create()->id,
+            'criteria_id' => \App\Models\Criteria::factory()->create()->id,
+            'value' => $this->faker->randomFloat(2, 0, 100),
         ];
     }
 }

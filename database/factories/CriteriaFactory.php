@@ -17,7 +17,8 @@ class CriteriaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->unique()->word(),
+            'weight' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

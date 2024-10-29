@@ -10,20 +10,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LoanWeightsRelationManager extends RelationManager
+class LoanWeightRelationManager extends RelationManager
 {
-    protected static string $relationship = 'loanWeights';
+    protected static string $relationship = 'loan_weights';
 
     public function form(Form $form): Form
     {
+
         return $form
             ->schema([
                 Forms\Components\Select::make('criteria_id')
                     ->label('Kriteria')
                     ->options(\App\Models\Criteria::all()->pluck('name', 'id')->toArray())
                     ->searchable()
-                    ->required()
-                    ->maxLength(255),
+                    ->required(),
                 Forms\Components\TextInput::make('value')
                     ->label('Nilai')
                     ->numeric()
@@ -34,6 +34,8 @@ class LoanWeightsRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
+
+
         return $table
             ->recordTitleAttribute('value')
             ->columns([

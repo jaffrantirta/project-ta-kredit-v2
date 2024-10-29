@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('purpose');
             $table->text('description');
+            $table->decimal('amount');
+            $table->integer('duration');
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->foreignId('status_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
