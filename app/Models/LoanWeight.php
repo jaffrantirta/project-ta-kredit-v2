@@ -24,6 +24,6 @@ class LoanWeight extends Model
 
     public function loan(): BelongsTo
     {
-        return $this->belongsTo(Loan::class);
+        return $this->belongsTo(Loan::class, 'loan_id');
     }
 }
