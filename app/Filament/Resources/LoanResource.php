@@ -37,7 +37,10 @@ class LoanResource extends Resource
                 Tables\Columns\TextColumn::make('amount')->label('Jumlah Pinjaman')->numeric()->prefix('Rp. '),
                 Tables\Columns\TextColumn::make('duration')->label('Durasi Pinjaman')->suffix(' Bulan'),
                 Tables\Columns\TextColumn::make('purpose')->label('Tujuan Pinjaman'),
-                Tables\Columns\TextColumn::make('status.name')->label('Status'),
+                Tables\Columns\TextColumn::make('status.name')
+                    ->label('Status')
+                    ->default('Verifikasi')
+                    ->getStateUsing(fn ($record): ?string => $record->status?->name ?? 'Verifikasi'),
                 Tables\Columns\TextColumn::make('final_score')->label('Nilai akhir'),
                 Tables\Columns\TextColumn::make('description')->label('Deskripsi'),
             ])

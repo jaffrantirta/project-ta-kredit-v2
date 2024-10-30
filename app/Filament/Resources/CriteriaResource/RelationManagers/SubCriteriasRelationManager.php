@@ -42,7 +42,9 @@ class SubCriteriasRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('editSubCriteria')
+                    ->label('Edit')
+                    ->url(fn ($record) => url("/admin/sub-criterias/{$record->id}/edit")),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

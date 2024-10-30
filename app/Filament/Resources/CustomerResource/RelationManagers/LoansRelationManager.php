@@ -62,7 +62,9 @@ class LoansRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('editloan')
+                    ->label('Edit')
+                    ->url(fn ($record) => url("/admin/loans/{$record->id}/edit")),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

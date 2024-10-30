@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Filament\Resources\LoanResource\Pages;
 
 use App\Filament\Resources\LoanResource;
@@ -66,25 +65,33 @@ class ListLoans extends ListRecords
         }
 
 
-        // Step 4: Calculate the final score for each loan application
+        // Step 4: Calculate the maximum possible score
+        $maxScore = 0;
+        foreach (Criteria::all() as $criteria) {
+            $criteriaWeight = $criteria->weight ?? 1;
+            $maxScore += $criteriaWeight; // Sum of all criteria weights
+        }
+
+        // Step 5: Calculate the final score for each loan application, scaled to a maximum of 100
         $finalScores = [];
         foreach ($criteriaScores as $loanId => $scoresByCriteria) {
             $finalScore = 0;
 
             foreach ($scoresByCriteria as $criteriaId => $criteriaScore) {
                 $criteria = Criteria::find($criteriaId);
-                $criteriaWeight = $criteria->weight ?? 1; // Default weight to 1 if not set
+                $criteriaWeight = $criteria->weight ?? 1;
 
                 $finalScore += $criteriaScore * $criteriaWeight;
             }
 
-            $finalScores[$loanId] = $finalScore;
+            // Scale final score to a maximum of 100
+            $finalScores[$loanId] = ($finalScore / $maxScore);
         }
 
-        // Step 5: Retrieve all statuses and sort by minimum_value descending
+        // Step 6: Retrieve all statuses and sort by minimum_value descending
         $statuses = Status::orderByDesc('minimum_value')->get();
 
-        // Step 6: Assign final score and status based on minimum_value threshold
+        // Step 7: Assign final score and status based on minimum_value threshold
         foreach ($finalScores as $loanId => $score) {
             $statusId = null;
 
