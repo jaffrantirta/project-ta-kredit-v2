@@ -4,11 +4,14 @@ namespace App\Filament\Resources\LoanResource\Pages;
 
 use App\Filament\Resources\LoanResource;
 use App\Models\Loan;
-use App\Models\LoanNormalization;
-use App\Models\LoanEvaluateAlternative;
+use App\Models\LoanApplicationScore;
+use App\Models\SubCriteria;
+use App\Models\Criteria;
+use App\Models\Status;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+use Filament\Notifications\Notification;
 
 class ListLoans extends ListRecords
 {
@@ -17,66 +20,92 @@ class ListLoans extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            // Actions\CreateAction::make(),
-            Actions\Action::make('normalizeLoans')
-                ->label('Normalize Loans')
-                ->action('normalizeLoans'),
-
-            Actions\Action::make('evaluateAlternatives')
-                ->label('Evaluate Alternatives')
-                ->action('evaluateAlternatives'),
+            Actions\Action::make('calculate-saw')
+                ->label('Calculate SAW')
+                ->action('calculateSAW'),
         ];
     }
 
-    public function normalizeLoans()
+    public function calculateSAW()
     {
-        // Fetch loans and normalize criteria values
-        $loans = Loan::with('criteria')->get();
+        // Step 1: Normalize scores for each sub-criterion
+        $normalizedScores = LoanApplicationScore::select(
+                'loan_id',
+                'sub_criteria_id',
+                DB::raw('score / MAX(score) OVER (PARTITION BY sub_criteria_id) AS normalized_score')
+            )
+            ->get()
+            ->groupBy(['loan_id', 'sub_criteria_id']);
 
-        // Perform normalization calculation for each loan and criteria
-        foreach ($loans as $loan) {
-            foreach ($loan->criteria as $criteria) {
-                $value = $this->normalizeValue($criteria->value); // Customize normalization logic as needed
-                LoanNormalization::updateOrCreate(
-                    ['loan_id' => $loan->id, 'criteria_id' => $criteria->id],
-                    ['value' => $value]
-                );
+
+        // Step 2: Calculate weighted score for each sub-criterion
+        $weightedScores = [];
+        foreach ($normalizedScores as $loanId => $subCriteriaScores) {
+            foreach ($subCriteriaScores as $subCriteriaId => $scores) {
+                $subCriteria = SubCriteria::find($subCriteriaId);
+                $weight = $subCriteria->weight ?? 1; // Default weight to 1 if not set
+
+                $weightedScores[$loanId][$subCriteriaId] = $scores->first()->normalized_score * $weight;
             }
         }
 
-        $this->notify('success', 'Loans have been normalized successfully.');
-    }
 
-    public function evaluateAlternatives()
-    {
-        // Fetch loans and criteria values to calculate SAW method results
-        $loans = Loan::with('criteria')->get();
+        // Step 3: Sum up weighted scores for each major criterion
+        $criteriaScores = [];
+        foreach ($weightedScores as $loanId => $subCriteriaScores) {
+            foreach ($subCriteriaScores as $subCriteriaId => $weightedScore) {
+                $subCriteria = SubCriteria::find($subCriteriaId);
+                $criteriaId = $subCriteria->criteria_id;
 
-        // Perform evaluation calculation for each loan
-        foreach ($loans as $loan) {
-            $sawScore = $this->calculateSAWScore($loan); // Implement SAW calculation logic
-            LoanEvaluateAlternative::updateOrCreate(
-                ['loan_id' => $loan->id],
-                ['value' => $sawScore]
-            );
+                if (!isset($criteriaScores[$loanId][$criteriaId])) {
+                    $criteriaScores[$loanId][$criteriaId] = 0;
+                }
+
+                $criteriaScores[$loanId][$criteriaId] += $weightedScore;
+            }
         }
 
-        $this->notify('success', 'Loan alternatives have been evaluated successfully.');
-    }
 
-    private function normalizeValue($value)
-    {
-        // Example normalization logic (implement specific logic here)
-        return $value / 100; // Placeholder example
-    }
+        // Step 4: Calculate the final score for each loan application
+        $finalScores = [];
+        foreach ($criteriaScores as $loanId => $scoresByCriteria) {
+            $finalScore = 0;
 
-    private function calculateSAWScore($loan)
-    {
-        // Example SAW method calculation (implement specific logic here)
-        $score = 0;
-        foreach ($loan->criteria as $criteria) {
-            $score += $criteria->weight * $criteria->normalized_value; // Adjust calculation as needed
+            foreach ($scoresByCriteria as $criteriaId => $criteriaScore) {
+                $criteria = Criteria::find($criteriaId);
+                $criteriaWeight = $criteria->weight ?? 1; // Default weight to 1 if not set
+
+                $finalScore += $criteriaScore * $criteriaWeight;
+            }
+
+            $finalScores[$loanId] = $finalScore;
         }
-        return $score;
+
+        // Step 5: Retrieve all statuses and sort by minimum_value descending
+        $statuses = Status::orderByDesc('minimum_value')->get();
+
+        // Step 6: Assign final score and status based on minimum_value threshold
+        foreach ($finalScores as $loanId => $score) {
+            $statusId = null;
+
+            // Find the highest status that the score qualifies for
+            foreach ($statuses as $status) {
+                if ($score >= $status->minimum_value) {
+                    $statusId = $status->id;
+                    break;
+                }
+            }
+
+            // Update the loan record with the final score and status
+            Loan::where('id', $loanId)->update([
+                'final_score' => $score,
+                'status_id' => $statusId,
+            ]);
+        }
+
+        Notification::make()
+            ->title('Perhitungan selesai')
+            ->success()
+            ->send();
     }
 }

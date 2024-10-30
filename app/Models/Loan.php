@@ -20,6 +20,7 @@ class Loan extends Model
         'description',
         'customer_id',
         'status_id',
+        'final_score',
     ];
 
     /**
