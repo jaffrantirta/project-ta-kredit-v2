@@ -13,18 +13,29 @@ class LoanApplicationScore extends Model
 
 
     protected $fillable = [
-        'customer_id',
+        'loan_id',
         'sub_criteria_id',
         'score',
+        'sub_criteria_option_name',
     ];
 
     /**
-     * Get the customer that owns the LoanApplicationScore
+     * Get the loan that owns the LoanApplicationScore
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function customer(): BelongsTo
+    public function loan(): BelongsTo
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Loan::class);
+    }
+
+    /**
+     * Get the sub_criteria that owns the LoanApplicationScore
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sub_criteria(): BelongsTo
+    {
+        return $this->belongsTo(SubCriteria::class);
     }
 }

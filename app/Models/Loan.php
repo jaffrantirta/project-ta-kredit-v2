@@ -33,6 +33,16 @@ class Loan extends Model
     }
 
     /**
+     * Get all of the loan_application_scores for the Loan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function loan_application_scores(): HasMany
+    {
+        return $this->hasMany(LoanApplicationScore::class);
+    }
+
+    /**
      * Get the status that owns the Loan
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

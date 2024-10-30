@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('loan_application_scores', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+            $table->foreignId('loan_id')->constrained()->onDelete('cascade');
             $table->foreignId('sub_criteria_id')->constrained()->onDelete('cascade');
-            $table->integer('score');
+            $table->string('sub_criteria_option_name');
+            $table->float('score');
             $table->timestamps();
         });
     }

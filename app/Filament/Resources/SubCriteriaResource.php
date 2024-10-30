@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CriteriaResource\Pages;
-use App\Filament\Resources\CriteriaResource\RelationManagers;
-use App\Models\Criteria;
+use App\Filament\Resources\SubCriteriaResource\Pages;
+use App\Filament\Resources\SubCriteriaResource\RelationManagers;
+use App\Models\SubCriteria;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,32 +13,24 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CriteriaResource extends Resource
+class SubCriteriaResource extends Resource
 {
-    protected static ?string $model = Criteria::class;
+    protected static ?string $model = SubCriteria::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $navigationLabel = 'Kriteria';
-
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->can('criteria.viewAny');
-    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nama kriteria')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('weight')
-                    ->label('Bobot kriteria (%)')
-                    ->helperText('Nilai bobot kriteria harus antara 0 sampai 100. Contoh: input "50" yang berarti 50%')
-                    ->numeric()
+                Forms\Components\Select::make('criteria_id')
+                    ->relationship('criteria', 'name')
                     ->required(),
+                Forms\Components\TextInput::make('name')
+                    ->required(),
+                Forms\Components\TextInput::make('weight')
+                    ->required()
+                    ->numeric(),
             ]);
     }
 
@@ -46,21 +38,22 @@ class CriteriaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->label('Nama Kriteria')
-                    ->searchable()
+                Tables\Columns\TextColumn::make('criteria.name')
+                    ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('weight')
-                    ->label('Bobot Kriteria')
+                    ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Dibuat Pada')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Diperbarui Pada')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -78,16 +71,16 @@ class CriteriaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\SubCriteriasRelationManager::class,
+            RelationManagers\SubCriteriaOptionsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCriterias::route('/'),
-            'create' => Pages\CreateCriteria::route('/create'),
-            'edit' => Pages\EditCriteria::route('/{record}/edit'),
+            'index' => Pages\ListSubCriterias::route('/'),
+            'create' => Pages\CreateSubCriteria::route('/create'),
+            'edit' => Pages\EditSubCriteria::route('/{record}/edit'),
         ];
     }
 }
