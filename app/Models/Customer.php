@@ -33,4 +33,14 @@ class Customer extends Model
     {
         return $this->hasMany(Loan::class);
     }
+
+    /**
+     * Get the loan_scores associated with the Customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function loan_scores(): HasMany
+    {
+        return $this->hasMany(LoanApplicationScore::class);
+    }
 }

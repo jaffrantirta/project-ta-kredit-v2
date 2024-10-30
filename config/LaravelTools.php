@@ -131,6 +131,72 @@ return [
             'name' => 'customer.delete',
             'roles' => ['super-admin'],
         ],
+
+        // subcriteria
+        [
+            'name' => 'subcriteria.viewAny',
+            'roles' => ['super-admin'],
+        ],
+        [
+            'name' => 'subcriteria.view',
+            'roles' => ['super-admin'],
+        ],
+        [
+            'name' => 'subcriteria.create',
+            'roles' => ['super-admin'],
+        ],
+        [
+            'name' => 'subcriteria.update',
+            'roles' => ['super-admin'],
+        ],
+        [
+            'name' => 'subcriteria.delete',
+            'roles' => ['super-admin'],
+        ],
+
+        // subcriteriaoption
+        [
+            'name' => 'subcriteriaoption.viewAny',
+            'roles' => ['super-admin'],
+        ],
+        [
+            'name' => 'subcriteriaoption.view',
+            'roles' => ['super-admin'],
+        ],
+        [
+            'name' => 'subcriteriaoption.create',
+            'roles' => ['super-admin'],
+        ],
+        [
+            'name' => 'subcriteriaoption.update',
+            'roles' => ['super-admin'],
+        ],
+        [
+            'name' => 'subcriteriaoption.delete',
+            'roles' => ['super-admin'],
+        ],
+
+        // loanapplicationscore
+        [
+            'name' => 'loanapplicationscore.viewAny',
+            'roles' => ['super-admin', 'admin'],
+        ],
+        [
+            'name' => 'loanapplicationscore.view',
+            'roles' => ['super-admin', 'admin'],
+        ],
+        [
+            'name' => 'loanapplicationscore.create',
+            'roles' => ['super-admin', 'admin'],
+        ],
+        [
+            'name' => 'loanapplicationscore.update',
+            'roles' => ['super-admin', 'admin'],
+        ],
+        [
+            'name' => 'loanapplicationscore.delete',
+            'roles' => ['super-admin'],
+        ],
     ],
     'max_login_attempt' => 3,
 ];

@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loan_weights', function (Blueprint $table) {
+        Schema::create('sub_criterias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_id')->constrained()->onDelete('cascade');
             $table->foreignId('criteria_id')->constrained()->onDelete('cascade');
-            $table->foreignId('criteria_option_id')->constrained()->onDelete('cascade');
-            $table->float('criteria_name');
-            $table->float('value');
+            $table->string('name', 100);
+            $table->decimal('weight', 5, 2);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('loan_weights');
+        Schema::dropIfExists('sub_criterias');
     }
 };

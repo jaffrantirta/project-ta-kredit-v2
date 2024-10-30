@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('loan_id')->constrained()->onDelete('cascade');
             $table->foreignId('criteria_id')->constrained()->onDelete('cascade');
+            $table->foreignId('criteria_option_id')->constrained()->onDelete('cascade');
+            $table->float('criteria_name');
             $table->float('value');
             $table->timestamps();
         });

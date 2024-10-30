@@ -45,4 +45,14 @@ class Criteria extends Model
     {
         return $this->hasMany(LoanWeight::class);
     }
+
+    /**
+     * Get all of the sub_criterias for the Criteria
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sub_criterias(): HasMany
+    {
+        return $this->hasMany(SubCriteria::class);
+    }
 }
