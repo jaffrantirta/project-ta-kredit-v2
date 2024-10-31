@@ -17,36 +17,6 @@ class Criteria extends Model
     ];
 
     /**
-     * Get all of the loanEvaluateAlternatives for the Criteria
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function loan_evaluate_alternatives(): HasMany
-    {
-        return $this->hasMany(LoanEvaluateAlternatives::class);
-    }
-
-    /**
-     * Get all of the normalizations for the Criteria
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function loan_normalizations(): HasMany
-    {
-        return $this->hasMany(LoanNormalization::class);
-    }
-
-    /**
-     * Get all of the weights for the Criteria
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function loan_weights(): HasMany
-    {
-        return $this->hasMany(LoanWeight::class);
-    }
-
-    /**
      * Get all of the sub_criterias for the Criteria
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

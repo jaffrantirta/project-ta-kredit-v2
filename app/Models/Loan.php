@@ -53,25 +53,5 @@ class Loan extends Model
         return $this->belongsTo(Status::class);
     }
 
-    /**
-     * Get all of the loanWeights for the Loan
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function loan_weights(): HasMany
-    {
-        return $this->hasMany(LoanWeight::class);
-    }
-
-    /**
-     * Get all of the weights for the Loan
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function weights(): HasMany
-    {
-        return $this->hasMany(LoanWeight::class);
-    }
-
 
 }
