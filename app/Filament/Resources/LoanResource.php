@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LoanResource\Pages;
 use App\Filament\Resources\LoanResource\RelationManagers;
 use App\Models\Loan;
+use App\Models\Status;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +13,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\Filter;
 
 class LoanResource extends Resource
 {
@@ -33,7 +36,7 @@ class LoanResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer.name')->label('Nama Nasabah'),
+                Tables\Columns\TextColumn::make('customer.name')->label('Nama Nasabah')->searchable(),
                 Tables\Columns\TextColumn::make('amount')->label('Jumlah Pinjaman')->numeric()->prefix('Rp. '),
                 Tables\Columns\TextColumn::make('duration')->label('Durasi Pinjaman')->suffix(' Bulan'),
                 Tables\Columns\TextColumn::make('purpose')->label('Tujuan Pinjaman'),
@@ -43,9 +46,36 @@ class LoanResource extends Resource
                     ->getStateUsing(fn ($record): ?string => $record->status?->name ?? 'Verifikasi'),
                 Tables\Columns\TextColumn::make('final_score')->label('Nilai akhir'),
                 Tables\Columns\TextColumn::make('description')->label('Deskripsi'),
+                Tables\Columns\TextColumn::make('created_at')->label('Dibuat pada')->date(),
             ])
             ->filters([
-                //
+                SelectFilter::make('status_id')
+                    ->label('Status')
+                    ->options(
+                        Status::all()->pluck('name', 'id')
+                    )
+                    ->attribute('status_id'),
+                    Filter::make('created_at')
+                    ->label('Tanggal Dibuat')
+                    ->form([
+                        Forms\Components\DatePicker::make('created_from')
+                            ->label('Dari Tanggal')
+                            ->default(now()->subMonth()), // Default to one month ago
+                        Forms\Components\DatePicker::make('created_until')
+                            ->label('Sampai Tanggal')
+                            ->default(now()), // Default to today
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date) => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date) => $query->whereDate('created_at', '<=', $date),
+                            );
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

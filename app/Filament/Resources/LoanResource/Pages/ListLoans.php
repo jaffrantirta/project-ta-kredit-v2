@@ -11,6 +11,8 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Facades\DB;
 use Filament\Notifications\Notification;
+use App\Filament\Exports\LoanExporter;
+use Filament\Actions\ExportAction;
 
 class ListLoans extends ListRecords
 {
@@ -19,6 +21,9 @@ class ListLoans extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            ExportAction::make()
+                ->exporter(LoanExporter::class)
+                ->label('Export'),
             Actions\Action::make('calculate-saw')
                 ->label('Calculate SAW')
                 ->action('calculateSAW'),
