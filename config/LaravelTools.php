@@ -25,11 +25,11 @@ return [
         // criteria
         [
             'name' => 'criteria.viewAny',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['super-admin'],
         ],
         [
             'name' => 'criteria.view',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['super-admin'],
         ],
         [
             'name' => 'criteria.create',
@@ -47,11 +47,11 @@ return [
         // status
         [
             'name' => 'status.viewAny',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['super-admin'],
         ],
         [
             'name' => 'status.view',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['super-admin'],
         ],
         [
             'name' => 'status.create',
