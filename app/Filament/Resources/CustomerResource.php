@@ -35,6 +35,10 @@ class CustomerResource extends Resource
                     ->label('Nomor HP')
                     ->required()
                     ->maxLength(13),
+                Forms\Components\TextInput::make('email')
+                    ->label('Email')
+                    ->required()
+                    ->email(),
                 Forms\Components\DatePicker::make('birthday')
                     ->label('Tanggal Lahir')
                     ->required(),

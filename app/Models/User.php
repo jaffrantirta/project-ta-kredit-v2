@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -54,5 +55,15 @@ class User extends Authenticatable implements FilamentUser
     {
         return true;
         // return $this->hasVerifiedEmail();
+    }
+
+    /**
+     * Get the customer associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function customer(): HasOne
+    {
+        return $this->hasOne(Customer::class);
     }
 }

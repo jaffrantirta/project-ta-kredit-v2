@@ -73,7 +73,7 @@ return [
         ],
         [
             'name' => 'loan.view',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['super-admin', 'admin', 'customer'],
         ],
         [
             'name' => 'loan.create',
@@ -95,7 +95,7 @@ return [
         ],
         [
             'name' => 'customer.view',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['super-admin', 'admin', 'customer'],
         ],
         [
             'name' => 'customer.create',

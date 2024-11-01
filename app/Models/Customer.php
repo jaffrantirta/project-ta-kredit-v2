@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Customer extends Model
 {
@@ -16,12 +17,14 @@ class Customer extends Model
         'name',
         'nik',
         'phone',
+        'email',
         'birthday',
         'birthplace',
         'gender',
         'address',
         'other_address',
         'occupation',
+        'user_id'
     ];
 
     /**
@@ -32,5 +35,15 @@ class Customer extends Model
     public function loans(): HasMany
     {
         return $this->hasMany(Loan::class);
+    }
+
+    /**
+     * Get the user that owns the Customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
