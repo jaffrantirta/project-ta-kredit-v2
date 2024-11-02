@@ -31,6 +31,9 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required(),
+                Forms\Components\TextInput::make('password')
+                        ->visibleOn('create')
+                    ->password(),
                 Forms\Components\Select::make('roles')
                     ->label('Roles')
                     ->multiple()

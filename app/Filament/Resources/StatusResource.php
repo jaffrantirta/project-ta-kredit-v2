@@ -24,7 +24,7 @@ class StatusResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->required()->label('Status'),
-                Forms\Components\TextInput::make('minimum_value')->required()->numeric()->label('Nilai Minimum')->helperText('Nilai minimum harus antara 0 sampai 1. Contoh: 0.8'),
+                Forms\Components\TextInput::make('minimum_value')->required()->numeric()->label('Nilai Minimum')->helperText('Nilai minimum harus antara 0 sampai 100. Contoh: 70'),
             ]);
     }
 

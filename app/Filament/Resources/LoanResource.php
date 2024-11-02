@@ -28,9 +28,12 @@ class LoanResource extends Resource
     {
         return $form
             ->schema([
-                // Forms\Components\TextInput::make('customer.name')->label('Nama Nasabah')->disabled(),
                 Forms\Components\TextInput::make('amount')->label('Jumlah Pinjaman')->numeric()->prefix('Rp. '),
                 Forms\Components\TextInput::make('duration')->label('Durasi Pinjaman')->suffix(' Bulan'),
+                Forms\Components\TextInput::make('purpose')->label('Tujuan Pinjaman')->required(),
+                Forms\Components\TextInput::make('description')->label('Deskripsi')->required(),
+                Forms\Components\TextInput::make('final_score')->label('Nilai Akhir')->numeric()->disabled(),
+
             ]);
     }
 
