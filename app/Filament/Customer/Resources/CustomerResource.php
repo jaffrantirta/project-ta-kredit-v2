@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Customer\Resources;
 
-use App\Filament\Resources\CustomerResource\Pages;
-use App\Filament\Resources\CustomerResource\RelationManagers;
+use App\Filament\Customer\Resources\CustomerResource\Pages;
+use App\Filament\Customer\Resources\CustomerResource\RelationManagers;
 use App\Models\Customer;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
@@ -17,9 +18,9 @@ class CustomerResource extends Resource
 {
     protected static ?string $model = Customer::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationLabel = 'Nasabah';
+    protected static ?string $navigationLabel = 'Data Diri Saya';
 
     public static function form(Form $form): Form
     {
@@ -67,6 +68,18 @@ class CustomerResource extends Resource
                     ->label('Pekerjaan')
                     ->required()
                     ->maxLength(50),
+                FileUpload::make('identity_card')
+                    ->required()
+                    ->label('KTP'),
+                FileUpload::make('family_card')
+                    ->required()
+                    ->label('Kartu Keluarga'),
+                FileUpload::make('guarantee_document')
+                    ->label('Dokumen Jaminan')
+                    ->required(),
+                FileUpload::make('salary_slip')
+                    ->label('Slip Gaji')
+                    ->required(),
             ]);
     }
 
@@ -97,14 +110,13 @@ class CustomerResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ])
-            ->defaultSort('created_at', 'desc');
+            ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            RelationManagers\LoansRelationManager::class,
+            //
         ];
     }
 

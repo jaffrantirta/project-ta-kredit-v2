@@ -3,177 +3,170 @@ return [
     'available_permissions' => [
         [
             'name' => 'user.viewAny',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'user.view',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'user.create',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'user.update',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'user.delete',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
-
         // criteria
         [
             'name' => 'criteria.viewAny',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'criteria.view',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'criteria.create',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'criteria.update',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'criteria.delete',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
-
         // status
         [
             'name' => 'status.viewAny',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'status.view',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'status.create',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'status.update',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'status.delete',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
-
         // loan
         [
             'name' => 'loan.viewAny',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin'],
         ],
         [
             'name' => 'loan.view',
-            'roles' => ['super-admin', 'admin', 'customer'],
+            'roles' => ['kabagkredit', 'admin', 'customer'],
         ],
         [
             'name' => 'loan.create',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin'],
         ],
         [
             'name' => 'loan.update',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin'],
         ],
         [
             'name' => 'loan.delete',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin'],
         ],
-
         // customer
         [
             'name' => 'customer.viewAny',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin', 'customer'],
         ],
         [
             'name' => 'customer.view',
-            'roles' => ['super-admin', 'admin', 'customer'],
+            'roles' => ['kabagkredit', 'admin', 'customer'],
         ],
         [
             'name' => 'customer.create',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin', 'customer'],
         ],
         [
             'name' => 'customer.update',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin', 'customer'],
         ],
         [
             'name' => 'customer.delete',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
-
         // subcriteria
         [
             'name' => 'subcriteria.viewAny',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'subcriteria.view',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'subcriteria.create',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'subcriteria.update',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'subcriteria.delete',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
-
         // subcriteriaoption
         [
             'name' => 'subcriteriaoption.viewAny',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'subcriteriaoption.view',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'subcriteriaoption.create',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'subcriteriaoption.update',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
         [
             'name' => 'subcriteriaoption.delete',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
-
         // loanapplicationscore
         [
             'name' => 'loanapplicationscore.viewAny',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin'],
         ],
         [
             'name' => 'loanapplicationscore.view',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin'],
         ],
         [
             'name' => 'loanapplicationscore.create',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin'],
         ],
         [
             'name' => 'loanapplicationscore.update',
-            'roles' => ['super-admin', 'admin'],
+            'roles' => ['kabagkredit', 'admin'],
         ],
         [
             'name' => 'loanapplicationscore.delete',
-            'roles' => ['super-admin'],
+            'roles' => ['kabagkredit'],
         ],
     ],
     'max_login_attempt' => 3,

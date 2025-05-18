@@ -3,15 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
     /** @use HasFactory<\Database\Factories\CustomerFactory> */
     use HasFactory;
-
 
     protected $fillable = [
         'name',
@@ -24,7 +23,11 @@ class Customer extends Model
         'address',
         'other_address',
         'occupation',
-        'user_id'
+        'user_id',
+        'identity_card',
+        'family_card',
+        'guarantee_document',
+        'salary_slip',
     ];
 
     /**
