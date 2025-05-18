@@ -70,15 +70,19 @@ class CustomerResource extends Resource
                     ->maxLength(50),
                 FileUpload::make('identity_card')
                     ->required()
+                    ->downloadable()
                     ->label('KTP'),
                 FileUpload::make('family_card')
                     ->required()
+                    ->downloadable()
                     ->label('Kartu Keluarga'),
                 FileUpload::make('guarantee_document')
                     ->label('Dokumen Jaminan')
+                    ->downloadable()
                     ->required(),
                 FileUpload::make('salary_slip')
                     ->label('Slip Gaji')
+                    ->downloadable()
                     ->required(),
             ]);
     }
